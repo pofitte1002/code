@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TS!용사 - 모험의 서</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap');
+
+        body {
+            background-color: #5d4037;
+            background-image: url('https://www.transparenttextures.com/patterns/leather.png');
+            font-family: 'Nanum Myeongjo', serif;
+            color: #4b3b32;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .book-cover {
+            background-color: #efebe9;
+            background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+            border: 20px solid #3e2723;
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+            text-align: center;
+            padding: 100px 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            max-width: 800px;
+        }
+
+        .book-cover:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+        }
+
+        .book-cover h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            color: #4b3b32;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .book-cover p {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        #main-content {
+            background-color: #efebe9;
+            background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            width: 95%;
+            max-width: 1600px;
+            display: flex;
+            border: 1px solid #c9b7a1;
+        }
+
+        .page {
+            width: 50%;
+            padding: 40px;
+            box-sizing: border-box;
+            border-right: 1px dashed #c9b7a1;
+        }
+        
+        .page:last-child {
+            border-right: none;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #6d4c41;
+            border-bottom: 2px solid #a1887f;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #5d4037;
+            margin-top: 30px;
+            border-left: 5px solid #a1887f;
+            padding-left: 10px;
+        }
+
+        h4 {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #4b3b32;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        p, ul {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            font-weight: bold;
+            color: #3e2723;
+        }
+
+        .npc-card {
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 1px solid #d7ccc8;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+            #main-content {
+                flex-direction: column;
+                width: 100%;
+                border: none;
+            }
+            .page {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px dashed #c9b7a1;
+                padding: 20px;
+            }
+            .book-cover h1 {
+                font-size: 3rem;
+            }
+            .book-cover p {
+                font-size: 1rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="intro" class="book-cover" onclick="openBook()">
+        <h1>TS!용사</h1>
+        <p>- 모험의 서 -</p>
+        <p>(클릭하여 책 넘기기)</p>
+    </div>
+
+    <div id="main-content" class="hidden">
+        <div class="page" id="left-page">
+            <h2>세계관 정보</h2>
+
+            <h3>세계 지리: 아르카디아 대륙</h3>
+            <ul>
+                <li><strong>중앙 왕국:</strong> 대륙의 중심. 여신 신앙의 본산이자 모든 용사 파티의 베이스캠프.</li>
+                <li><strong>북부 마계:</strong> 마왕군 주둔지. 혹한의 영구동토에서 호시탐탐 중앙으로 남하를 시도한다.</li>
+                <li><strong>동부 수림:</strong> 엘프 및 수인족의 거주지. 폐쇄적인 생태계를 이루고 있다.</li>
+                <li><strong>서부 황야:</strong> 몬스터가 들끓는 구역. 무법자와 용병들의 주 활동지.</li>
+                <li><strong>남부 군도:</strong> 해상 무역의 중심지. 거대 상단 연합이 지배하고 있다.</li>
+            </ul>
+
+            <h3>북방 마왕군</h3>
+            <ul>
+                <li><strong>전황:</strong> 북쪽 국경선을 뚫고 중앙 왕국으로 진격 중. 인류 연합군과 치열한 전선을 형성하고 있다.</li>
+                <li><strong>목표:</strong> 대륙 정복과 함께, 과거 마왕군의 소유물이던 결전병기 '마검 리버스 엣지'를 탈환하는 것.</li>
+                <li><strong>특이점:</strong> 선대 마왕 사후, 군단장들 간의 알력 다툼이 존재하며 TS용사의 등장 이후 전략을 수정하고 있다.</li>
+            </ul>
+
+            <h3>핵심 아티팩트: 마검 리버스 엣지</h3>
+            <ul>
+                <li><strong>외형:</strong> 칠흑빛 검신 중앙에 루비가 박혀 있으며, 소유자의 마력에 반응해 맥동한다.</li>
+                <li><strong>기능:</strong> 절삭력을 극대화하고 마력을 증폭시킨다. 사용 시 강제 성별 반전(TS)이 발동된다.</li>
+                <li><strong>TS 메커니즘:</strong> 남자는 초절정 미소녀로, 여자는 압도적인 알파메일로 변신하며 신체 능력이 일시적으로 폭주한다.</li>
+                <li><strong>인지 왜곡:</strong> 마검의 환혹 마력으로 인해, 대중은 TS 전후의 인물을 전혀 다른 별개의 인물로 인식한다.</li>
+            </ul>
+
+            <h3>대중의 착각 (극단적 이중 잣대)</h3>
+            <ul>
+                <li><strong>영웅 폼 (TSPC):</strong> 북부의 위협을 막아낼 유일한 구원자. 완벽한 외모로 맹목적인 추앙을 받는다.</li>
+                <li><strong>따까리 폼 (원래PC):</strong> 영웅 파티의 짐꾼이자 고기방패. 무능력자 취급을 받으며 사회적으로 멸시당한다.</li>
+            </ul>
+        </div>
+        <div class="page" id="right-page">
+            <h2>NPC 리스트</h2>
+
+            <div class="npc-card">
+                <h3>신계</h3>
+                <h4>요시니아 (여신, ?세)</h4>
+                <p><strong>성향:</strong> 메스가키, 겜창, ENTP, 7w8</p>
+                <p><strong>외형:</strong> 루즈핏 튜닉, 맨발, 허벅지 타투, 건방진 송곳니 미소.</p>
+            </div>
+
+            <div class="npc-card">
+                <h3>용사파티</h3>
+                <h4>아르제니아 (마법사, 22세)</h4>
+                <p><strong>성향:</strong> 허당, ENTP, 7w8</p>
+                <p><strong>외형:</strong> 부스스한 은발, 흘러내린 로브, 가터벨트.</p>
+                
+                <h4>세리아 (성직자, 20세)</h4>
+                <p><strong>성향:</strong> 하라구로, 새디스트, ESTJ, 3w2</p>
+                <p><strong>외형:</strong> 금발 단발, 딱 붙는 사제복, 가죽 채찍, 검은 스타킹.</p>
+
+                <h4>바르디 (탱커, 28세)</h4>
+                <p><strong>성향:</strong> 걸크러시, 근육뇌, ESFP, 8w7</p>
+                <p><strong>외형:</strong> 구릿빛 피부, 11자 복근, 크롭탑 철갑옷, 치마, 허벅지 흉터.</p>
+
+                <h4>렌 (도적, 21세)</h4>
+                <p><strong>성향:</strong> 쿨데레, 암살자, INTP, 5w4</p>
+                <p><strong>외형:</strong> 흑발 숏컷, 가죽 바디수트, 허벅지 단검 홀스터.</p>
+            </div>
+
+            <div class="npc-card">
+                <h3>마왕군</h3>
+                <h4>카르마기온 (마왕, 800세)</h4>
+                <p><strong>성향:</strong> 덜렁이, 갭모에, INTJ, 1w9</p>
+                <p><strong>외형:</strong> 올백 흑발, 타이트한 오피스룩, 검은 하이힐.</p>
+
+                <h4>베리얼 (군단장, 300세)</h4>
+                <p><strong>성향:</strong> 비서, ISTJ, 6w5</p>
+                <p><strong>외형:</strong> 붉은 긴 생머리, 슬릿 스커트, 차가운 눈빛.</p>
+
+                <h4>고르단 (돌격대장, 250세)</h4>
+                <p><strong>성향:</strong> 중증오타쿠, ENFP, 2w3</p>
+                <p><strong>외형:</strong> 훤칠한 키, 탄탄한 근육질, 거친 야성미.</p>
+            </div>
+
+            <div class="npc-card">
+                <h3>그 외 무소속</h3>
+                <h4>골디 (길드장, 50세)</h4>
+                <p><strong>성향:</strong> 농염함, 구두쇠, ENTJ, 8w9</p>
+                <p><strong>외형:</strong> 화려한 올림머리, 빨간 드레스, 눈물점, 얇은 곰방대.</p>
+
+                <h4>마가렛 (여관주인, 150세)</h4>
+                <p><strong>성향:</strong> 다루데레, 치유계, ESFJ, 2w1</p>
+                <p><strong>외형:</strong> 느슨하게 묶은 머리, 앞치마, 모성애를 자극하는 미소.</p>
+
+                <h4>알베르타 (여왕, 20세)</h4>
+                <p><strong>성향:</strong> 오만함, 허접, ISFP, 9w1</p>
+                <p><strong>외형:</strong> 화려한 프릴 드레스, 금발 롤빵머리, 항상 홍조 띤 얼굴.</p>
+
+                <h4>제키 (무소속 헌터, 21세)</h4>
+                <p><strong>성향:</strong> 엘프갸루, 메가데레, ISFJ, 9w1</p>
+                <p><strong>외형:</strong> 금발 트윈테일, 태닝 피부, 가죽 갑옷, 화려한 마법 네일.</p>
+
+                <h4>루시 (팬클럽 회장, 18세)</h4>
+                <p><strong>성향:</strong> 얀데레, 광신도, ENFJ, 4w3</p>
+                <p><strong>외형:</strong> 눈을 가린 후드, 마법 영상기록 수정구, 굿즈로 도배된 망토.</p>
+
+                <h4>도라 (대장장이, 120세)</h4>
+                <p><strong>성향:</strong> 츤데레, ISTP, 5w6</p>
+                <p><strong>외형:</strong> 은발 트윈테일, 땀에 젖은 탱크탑, 자기 몸집만 한 망치.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openBook() {
+            document.getElementById('intro').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
