@@ -18,7 +18,6 @@
             font-family: 'SchoolSafetyChalk', serif;
             color: #4b3b32;
             margin: 0;
-            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -31,7 +30,8 @@
         }
 
         .book {
-            width: 800px;
+            width: 90vw;
+            max-width: 1000px;
             height: 600px;
             position: relative;
             transform-style: preserve-3d;
@@ -42,22 +42,24 @@
             position: absolute;
             width: 50%;
             height: 100%;
-            background-color: #efebe9;
+            background-color: #fdfaf3;
             background-image: url('https://www.transparenttextures.com/patterns/paper.png');
             border: 1px solid #c9b7a1;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
             box-sizing: border-box;
             transform-origin: left center;
-            transition: transform 1s, z-index 0.5s;
+            transition: transform 1s ease-in-out;
         }
         
         .page-content {
-            padding: 20px;
+            padding: 25px;
             box-sizing: border-box;
             width: 100%;
             height: 100%;
             overflow-y: auto;
         }
 
+        /* Covers */
         .cover-front {
             background-color: #3e2723;
             color: #efebe9;
@@ -67,7 +69,7 @@
             align-items: center;
             text-align: center;
             cursor: pointer;
-            z-index: 100; /* High z-index to be on top */
+            z-index: 100;
         }
         
         .cover-front h1 {
@@ -82,8 +84,10 @@
         .cover-back {
             background-color: #3e2723;
             transform: rotateY(180deg);
+             z-index: 0;
         }
 
+        /* Page flipping mechanics */
         .book.open > .cover-front {
             transform: rotateY(-180deg);
         }
@@ -92,35 +96,20 @@
             transform: rotateY(-180deg);
         }
 
-        .front {
+        .front, .back {
             position: absolute;
             width: 100%;
             height: 100%;
+            top: 0;
+            left: 0;
             backface-visibility: hidden;
         }
 
         .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
             transform: rotateY(180deg);
         }
         
-        #page1 { z-index: 3; }
-        #page2 { z-index: 2; }
-        #page3 { z-index: 1; }
-
-        .book.open #page1 {
-            transition-delay: 0.2s;
-        }
-        .book.open #page2 {
-            transition-delay: 0.4s;
-        }
-        .book.open #page3 {
-            transition-delay: 0.6s;
-        }
-        
+        /* Content Styling */
         h2 {
             font-size: 2rem;
             border-bottom: 2px solid #a1887f;
@@ -129,10 +118,29 @@
         h3 {
             font-size: 1.5rem;
         }
-        h4 {
-            font-size: 1.2rem;
-            margin: 10px 0 5px;
+
+        .character-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
         }
+        .character-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid #dcd3c7;
+        }
+        .character-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.4rem;
+        }
+        .character-info p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        
         ul {
             padding-left: 20px;
             list-style: none;
@@ -140,154 +148,243 @@
         li {
             margin-bottom: 8px;
         }
-        .npc-card {
-            margin-bottom: 15px;
-        }
 
+        /* Navigation */
         .navigation {
             text-align: center;
             margin-top: 20px;
         }
         .navigation button {
-            background-color: #efebe9;
-            border: 1px solid #3e2723;
+            background-color: #fdfaf3;
+            border: 2px solid #3e2723;
             color: #3e2723;
             padding: 10px 20px;
             cursor: pointer;
             font-family: 'SchoolSafetyChalk', serif;
             font-size: 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .navigation button:hover {
+            background-color: #3e2723;
+            color: #fdfaf3;
         }
     </style>
 </head>
 <body>
     <div class="book-container">
         <div id="book" class="book">
+            <!-- Cover -->
             <div id="cover" class="page cover-front" onclick="openBook()">
-                <h1>TS!용사</h1>
-                <p>- 모험의 서 -</p>
-                <p>(클릭하여 책 넘기기)</p>
+                <div class="page-content">
+                    <h1>TS!용사</h1>
+                    <p>- 모험의 서 -</p>
+                    <p style="margin-top: 50px;">(클릭하여 책 열기)</p>
+                </div>
             </div>
-            <div class="page" id="page1">
+
+            <!-- Page 1 -->
+            <div class="page content-page" id="page1">
                 <div class="page-content front">
-                    
+                    <!-- Blank first page -->
                 </div>
                 <div class="page-content back">
-                    <h2>세계 지리: 아르카디아 대륙</h2>
+                    <h2>세계 지리</h2>
                     <ul>
                         <li><strong>중앙 왕국:</strong> 대륙의 중심. 여신 신앙의 본산이자 모든 용사 파티의 베이스캠프.</li>
-                        <li><strong>북부 마계:</strong> 마왕군 주둔지. 혹한의 영구동토에서 호시탐탐 중앙으로 남하를 시도한다.</li>
-                        <li><strong>동부 수림:</strong> 엘프 및 수인족의 거주지. 폐쇄적인 생태계를 이루고 있다.</li>
-                        <li><strong>서부 황야:</strong> 몬스터가 들끓는 구역. 무법자와 용병들의 주 활동지.</li>
-                        <li><strong>남부 군도:</strong> 해상 무역의 중심지. 거대 상단 연합이 지배하고 있다.</li>
+                        <li><strong>북부 마계:</strong> 마왕군 주둔지. 혹한의 영구동토.</li>
+                        <li><strong>동부 수림:</strong> 엘프 및 수인족의 거주지. 폐쇄적인 생태계.</li>
+                        <li><strong>서부 황야:</strong> 몬스터가 들끓는 구역. 무법자와 용병들의 활동지.</li>
+                        <li><strong>남부 군도:</strong> 해상 무역의 중심지. 거대 상단 연합이 지배.</li>
                     </ul>
 
                     <h3>북방 마왕군</h3>
                     <ul>
-                        <li><strong>전황:</strong> 북쪽 국경선을 뚫고 중앙 왕국으로 진격 중. 인류 연합군과 치열한 전선을 형성하고 있다.</li>
-                        <li><strong>목표:</strong> 대륙 정복과 함께, 과거 마왕군의 소유물이던 결전병기 '마검 리버스 엣지'를 탈환하는 것.</li>
-                        <li><strong>특이점:</strong> 선대 마왕 사후, 군단장들 간의 알력 다툼이 존재하며 TS용사의 등장 이후 전략을 수정하고 있다.</li>
+                        <li><strong>전황:</strong> 북쪽 국경선을 뚫고 중앙 왕국으로 진격 중.</li>
+                        <li><strong>목표:</strong> 결전병기 '마검 리버스 엣지' 탈환.</li>
                     </ul>
                 </div>
             </div>
-            <div class="page" id="page2">
+            
+            <!-- Page 2 -->
+            <div class="page content-page" id="page2">
                 <div class="page-content front">
-                    <h2>핵심 아티팩트: 마검 리버스 엣지</h2>
-                    <ul>
-                        <li><strong>외형:</strong> 칠흑빛 검신 중앙에 루비가 박혀 있으며, 소유자의 마력에 반응해 맥동한다.</li>
-                        <li><strong>기능:</strong> 절삭력을 극대화하고 마력을 증폭시킨다. 사용 시 강제 성별 반전(TS)이 발동된다.</li>
-                        <li><strong>TS 메커니즘:</strong> 남자는 초절정 미소녀로, 여자는 압도적인 알파메일로 변신하며 신체 능력이 일시적으로 폭주한다.</li>
-                        <li><strong>인지 왜곡:</strong> 마검의 환혹 마력으로 인해, 대중은 TS 전후의 인물을 전혀 다른 별개의 인물로 인식한다.</li>
-                    </ul>
-
-                    <h3>대중의 착각 (극단적 이중 잣대)</h3>
-                    <ul>
-                        <li><strong>영웅 폼 (TSPC):</strong> 북부의 위협을 막아낼 유일한 구원자. 완벽한 외모로 맹목적인 추앙을 받는다.</li>
-                        <li><strong>따까리 폼 (원래PC):</strong> 영웅 파티의 짐꾼이자 고기방패. 무능력자 취급을 받으며 사회적으로 멸시당한다.</li>
-                    </ul>
-                </div>
-                <div class="page-content back">
-                    <h2>NPC 리스트</h2>
+                    <h2>주요 인물</h2>
                     <h3>신계</h3>
-                    <div class="npc-card">
-                        <h4>요시니아 (여신)</h4>
+                    <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/001.webp" alt="요시니아">
+                        <div class="character-info">
+                            <h4>요시니아</h4>
+                            <p>여신</p>
+                        </div>
                     </div>
-
                     <h3>용사파티</h3>
-                    <div class="npc-card">
-                        <h4>아르제니아 (마법사)</h4>
-                        <h4>세리아 (성직자)</h4>
-                        <h4>바르디 (탱커)</h4>
-                        <h4>렌 (도적)</h4>
+                    <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/002.webp" alt="아르제니아">
+                        <div class="character-info">
+                            <h4>아르제니아</h4>
+                            <p>마법사</p>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="page" id="page3">
-                <div class="page-content front">
-                    <h3>마왕군</h3>
-                    <div class="npc-card">
-                        <h4>카르마기온 (마왕)</h4>
-                        <h4>베리얼 (군단장)</h4>
-                        <h4>고르단 (돌격대장)</h4>
-                    </div>
-
-                    <h3>그 외 무소속</h3>
-                    <div class="npc-card">
-                        <h4>골디 (길드장)</h4>
-                        <h4>마가렛 (여관주인)</h4>
-                        <h4>알베르타 (여왕)</h4>
-                        <h4>제키 (무소속 헌터)</h4>
-                        <h4>루시 (팬클럽 회장)</h4>
-                        <h4>도라 (대장장이)</h4>
+                     <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/003.webp" alt="세리아">
+                        <div class="character-info">
+                            <h4>세리아</h4>
+                            <p>성직자</p>
+                        </div>
                     </div>
                 </div>
                 <div class="page-content back">
-                    <!-- Back of the last page -->
+                    <h3>용사파티 (계속)</h3>
+                    <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/004.webp" alt="바르디">
+                        <div class="character-info">
+                            <h4>바르디</h4>
+                            <p>탱커</p>
+                        </div>
+                    </div>
+                    <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/005.webp" alt="렌">
+                        <div class="character-info">
+                            <h4>렌</h4>
+                            <p>도적</p>
+                        </div>
+                    </div>
+                    <h3>마왕군</h3>
+                     <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/006.webp" alt="카르마기온">
+                        <div class="character-info">
+                            <h4>카르마기온</h4>
+                            <p>마왕</p>
+                        </div>
+                    </div>
+                     <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/007.webp" alt="배리얼">
+                        <div class="character-info">
+                            <h4>배리얼</h4>
+                            <p>군단장</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-             <div class="page cover-back"></div>
-        </div>
 
-        <div class="navigation">
-            <button onclick="prevPage()">이전</button>
-            <button onclick="nextPage()">다음</button>
+            <!-- Page 3 -->
+            <div class="page content-page" id="page3">
+                <div class="page-content front">
+                    <h3>마왕군 (계속)</h3>
+                     <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/008.webp" alt="고르단">
+                        <div class="character-info">
+                            <h4>고르단</h4>
+                            <p>돌격대장</p>
+                        </div>
+                    </div>
+                    <h3>그 외 무소속</h3>
+                    <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/009.webp" alt="골디">
+                        <div class="character-info">
+                            <h4>골디</h4>
+                            <p>길드장</p>
+                        </div>
+                    </div>
+                    <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/010.webp" alt="마가렛">
+                        <div class="character-info">
+                            <h4>마가렛</h4>
+                            <p>여관주인</p>
+                        </div>
+                    </div>
+                     <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/011.webp" alt="알베르타">
+                        <div class="character-info">
+                            <h4>알베르타</h4>
+                            <p>여왕</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content back">
+                     <h3>그 외 무소속 (계속)</h3>
+                     <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/012.webp" alt="제키">
+                        <div class="character-info">
+                            <h4>제키</h4>
+                            <p>무소속 헌터</p>
+                        </div>
+                    </div>
+                     <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/013.webp" alt="루시">
+                        <div class="character-info">
+                            <h4>루시</h4>
+                            <p>팬클럽 회장</p>
+                        </div>
+                    </div>
+                    <div class="character-card">
+                        <img src="https://poft.uk/varka/z/website/014.webp" alt="도라">
+                        <div class="character-info">
+                            <h4>도라</h4>
+                            <p>대장장이</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Back Cover -->
+            <div class="page cover-back"></div>
         </div>
+    </div>
+
+    <div class="navigation">
+        <button onclick="prevPage()">이전</button>
+        <button onclick="nextPage()">다음</button>
     </div>
     
     <script>
-        let currentPage = 0;
         const book = document.getElementById('book');
-        const pages = document.querySelectorAll('.page:not(.cover-front):not(.cover-back)');
+        const pages = document.querySelectorAll('.content-page');
+        const pageCount = pages.length;
+        let currentPage = 0;
 
         function openBook() {
             book.classList.add('open');
-            document.getElementById('cover').classList.add('open');
+            updatePageZIndex();
         }
 
-        function updatePageVisibility() {
+        function closeBook() {
+            book.classList.remove('open');
+        }
+
+        function updatePageZIndex() {
             pages.forEach((page, index) => {
                 if (index < currentPage) {
+                    // Flipped page
                     page.classList.add('flipped');
-                    page.style.zIndex = pages.length - index;
+                    page.style.zIndex = index + 1;
                 } else {
+                    // Unflipped page
                     page.classList.remove('flipped');
-                    page.style.zIndex = pages.length - index;
+                    page.style.zIndex = pageCount - index;
                 }
             });
         }
 
         function nextPage() {
-            if (currentPage < pages.length) {
+            if (currentPage < pageCount) {
                 currentPage++;
-                updatePageVisibility();
+                updatePageZIndex();
             }
         }
 
         function prevPage() {
             if (currentPage > 0) {
                 currentPage--;
-                updatePageVisibility();
+                updatePageZIndex();
             }
         }
+        
+        // Initially, set z-index for the closed book state
+        pages.forEach((page, index) => {
+            page.style.zIndex = pageCount - index;
+        });
     </script>
 </body>
 </html>
